@@ -13,21 +13,33 @@ namespace myun2
 			struct selector
 			{
 				::std::string name;
-				::std::map<
+				typedef ::std::map<
 					::std::string,
-					::std::string> attributes;
+					::std::string> attribute_map;
+				attribute_map attributes;
 
 				typedef ::std::map< ::std::string, ::std::string>::iterator
 					attribute_iterator;
 				typedef ::std::map< ::std::string, ::std::string>::const_iterator
 					const_attribute_iterator;
 
+				//	Constructors
+				selector(const char* name_)
+					: name(name_) {}
+				selector(const char* name_, const attribute_map& attributes_)
+					: name(name_), attributes(attributes_) {}
+
+				//	Serialization
 				::std::string serialize() const
 				{
 					std::string buffer = name + "{";
 					for(const_attribute_iterator it=attributes.begin(); it!=attributes.end(); it++)
 						buffer += it->first + ":" + it->second + ";";
-					return buffer;
+					return buffer + "}";
+				}
+
+				::std::string& operator [](const char* attribute_name) {
+					return attributes[attribute_name];
 				}
 			};
 		}

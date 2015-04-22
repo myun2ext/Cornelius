@@ -15,5 +15,12 @@ int main()
 	printf("Path:     \"%s\"\n", r.path.c_str());
 	printf("Protocol: \"%s\"\n", r.protocol.c_str());
 
+	printf("\n");
+	//------------------------------------------
+
+	css::selector style_h1 = css::selector("h1");
+	style_h1["background-color"] = "#ffffff";
+	printf("CSS:\n%s\n", style_h1.serialize().c_str());
+
 	return 0;
 }
