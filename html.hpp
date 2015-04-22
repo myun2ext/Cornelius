@@ -7,8 +7,14 @@ namespace myun2
 	{
 		namespace html
 		{
+			template <unsigned char Version>
 			struct document
 			{
+				::std::string serialize()
+				{
+					::std::string buffer = "<!DOCTYPE html><html>";
+					return buffer + "</html>";
+				}
 			};
 		}
 	}
