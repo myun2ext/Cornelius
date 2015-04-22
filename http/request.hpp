@@ -23,12 +23,14 @@ namespace myun2
 					{
 						if (*s == ' ') {
 							if (r.method.empty())
-								r.method = ::std::string(s, s - prev);
+								r.method = ::std::string(prev, s - prev);
 							else if (r.path.empty())
-								r.path = ::std::string(s, s - prev);
+								r.path = ::std::string(prev, s - prev);
+							prev = s + 1;
 						}
+						s++;
 					}
-					r.protocol = ::std::string(s, s - prev);
+					r.protocol = ::std::string(prev, s - prev);
 					return r;
 				}
 			};
