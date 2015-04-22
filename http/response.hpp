@@ -13,7 +13,7 @@ namespace myun2
 					const char* protocol, unsigned short status, const char* reason,
 					FILE* fp)
 			{
-				fprintf(fp, "%s %d %s\r\n", protocol, status, reason);
+				return fprintf(fp, "%s %d %s\r\n", protocol, status, reason);
 			}
 		}
 	}
