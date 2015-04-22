@@ -36,4 +36,4 @@ namespace myun2
 	}
 }
 
-#endif//__MYUN2_GITHUB_COM__CORNELIUS__HTTP_HPP__
+#endif//__MYUN2_GITHUB_COM__CORNELIUS__HTTP__REQUEST_HPP__
