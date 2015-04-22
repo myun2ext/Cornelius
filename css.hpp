@@ -14,6 +14,16 @@ namespace myun2
 			{
 				::std::string name;
 				::std::map<::std::string, ::std:string> attributes;
+				typedef typename ::std::map<::std::string, ::std:string>::iterator
+					attribute_iterator;
+
+				::std::string serialize() const
+				{
+					std::string buffer = name + "{";
+					for(attribute_iterator it=attributes.begin(); it!=attributes.end(); it++)
+						buffer += it.first() + ":" + it.second() + ";";
+					return buffer;
+				}
 			};
 		}
 	}
