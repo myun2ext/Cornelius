@@ -13,11 +13,23 @@ namespace myun2
 			::std::string path;
 			::std::string protocol;
 
-			int parse(const char* s)
+			static http_request parse(const char* s)
 			{
+				http_request r;
+				const char *prev = s;
+				while(*s != '\0' && *s != '\r' && *s != '\n')
+				{
+					if (*s == ' ') {
+						if (r.method.empty())
+							r.method = ::std::string(s, s - prev);
+						else if (r.path.empty())
+							r.path = ::std::string(s, s - prev);
+					}
+				}
+				r.protocol = ::std::string(s, s - prev);
+				return r;
 			}
 		};
-
 	}
 }
 
