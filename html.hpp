@@ -12,17 +12,19 @@ namespace myun2
 		namespace html
 		{
 			template <unsigned char Version>
-			struct document
+			struct doctype { static const char* _ = "<!DOCTYPE html>"; };
+
+			template <unsigned char Version>
+			struct document : tag
 			{
+				document() : tag("html"){}
 				head_ head;
 				body_ body;
 
 				::std::string serialize() const
 				{
-					::std::string buffer = "<!DOCTYPE html><html>";
-					buffer += head.serialize();
-					buffer += body.serialize();
-					return buffer + "</html>";
+					::std::string buffer = doctype<Version>::_;
+					return serialize(buffer + head.serialize() + body.serialize());
 				}
 			};
 		}
