@@ -2,6 +2,7 @@
 #define __MYUN2_GITHUB_COM__CORNELIUS__HTML_HPP__
 
 #include "html/tag.hpp"
+#include "html/tags.hpp"
 #include "html/head.hpp"
 
 namespace myun2
@@ -10,26 +11,17 @@ namespace myun2
 	{
 		namespace html
 		{
-			struct body
-			{
-				::std::string serialize()
-				{
-					::std::string buffer = "<body>";
-					return buffer + "</body>";
-				}
-			};
-
 			template <unsigned char Version>
 			struct document
 			{
-				head _head;
-				body _body;
+				head_ head;
+				body_ body;
 
-				::std::string serialize()
+				::std::string serialize() const
 				{
 					::std::string buffer = "<!DOCTYPE html><html>";
-					buffer += _head.serialize();
-					buffer += _body.serialize();
+					buffer += head.serialize();
+					buffer += body.serialize();
 					return buffer + "</html>";
 				}
 			};

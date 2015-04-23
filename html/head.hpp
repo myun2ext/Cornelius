@@ -9,11 +9,11 @@ namespace myun2
 		{
 			DECL_CORNELIUS_HTML_TAG2(title_, "title");
 
-			struct head : tag
+			struct head_ : tag
 			{
-				head() : tag("head"){}
+				head_() : tag("head"){}
 				title_ title;
-				::std::string serialize()
+				::std::string serialize() const
 				{
 					return tag::serialize(title);
 				}

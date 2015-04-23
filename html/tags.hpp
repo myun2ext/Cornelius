@@ -7,6 +7,7 @@ namespace myun2
 	{
 		namespace html
 		{
+			DECL_CORNELIUS_HTML_TAG2(body_, "body");
 			DECL_CORNELIUS_HTML_TAG(a);
 			DECL_CORNELIUS_HTML_TAG(h1);
 			DECL_CORNELIUS_HTML_TAG(h2);
