@@ -7,12 +7,15 @@ namespace myun2
 	{
 		namespace html
 		{
-			struct head
+			DECL_CORNELIUS_HTML_TAG2(title_, "title");
+
+			struct head : tag
 			{
+				head() : tag("head"){}
+				title_ title;
 				::std::string serialize()
 				{
-					::std::string buffer = "<head>";
-					return buffer + "</head>";
+					return tag::serialize(title);
 				}
 			};
 		}

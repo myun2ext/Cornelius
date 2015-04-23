@@ -1,6 +1,7 @@
 #ifndef __MYUN2_GITHUB_COM__CORNELIUS__HTML_HPP__
 #define __MYUN2_GITHUB_COM__CORNELIUS__HTML_HPP__
 
+#include "html/tag.hpp"
 #include "html/head.hpp"
 
 namespace myun2

@@ -29,18 +29,28 @@ namespace myun2
 				tag(const char* name_in, const char* content_in="")
 					: name(name_in), content(content_in) {}
 
-				::std::string serialize(const char* content_in = 0)
+				::std::string serialize(::std::string content_in) const { return serialize(content_in.c_str()); }
+				::std::string serialize(const char* content_in = 0) const
 				{
-					::std::string buffer = "<" + name;
+					::std::string buffer = "<";
+					buffer += name;
+
 					for(const_attribute_iterator it=attributes.begin(); it!=attributes.end(); it++)
 						buffer += " " + it->first + "=\"" + it->second + ";\"";
 
-					buffer += ">" + (content_in || content);
+					buffer += ">" + (content_in ? content_in : content);
 					return buffer + "</" + name + ">";
+				}
+				operator ::std::string() const {
+					return serialize();
 				}
 			};
 		}
 	}
 }
+
+#define DECL_CORNELIUS_HTML_TAG(NAME)	struct NAME : tag { NAME() : tag(#NAME){} };
+#define DECL_CORNELIUS_HTML_TAG2(CLASS_NAME, TAG_NAME)	\
+	struct CLASS_NAME : tag { CLASS_NAME() : tag(TAG_NAME){} };
 
 #endif//__MYUN2_GITHUB_COM__CORNELIUS__HTML__TAG_HPP__
