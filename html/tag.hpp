@@ -29,7 +29,7 @@ namespace myun2
 				tag(const char* name_in, const char* content_in="")
 					: name(name_in), content(content_in) {}
 
-				::std::string serialize(::std::string content_in) const { return serialize(content_in.c_str()); }
+				::std::string serialize(const ::std::string& content_in) const { return serialize(content_in.c_str()); }
 				::std::string serialize(const char* content_in = 0) const
 				{
 					::std::string buffer = "<";

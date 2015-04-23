@@ -12,7 +12,16 @@ namespace myun2
 		namespace html
 		{
 			template <unsigned char Version>
-			struct doctype { static const char* _ = "<!DOCTYPE html>"; };
+			struct doctype;
+
+			template <>
+			struct doctype<4> { const char* _; doctype():_(
+				"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\""){}
+			};
+
+			template <>
+			struct doctype<5> { const char* _; doctype():_("<!DOCTYPE html>"){} };
+
 
 			template <unsigned char Version>
 			struct document : tag
@@ -23,8 +32,8 @@ namespace myun2
 
 				::std::string serialize() const
 				{
-					::std::string buffer = doctype<Version>::_;
-					return serialize(buffer + head.serialize() + body.serialize());
+					::std::string doctype_s = doctype<Version>()._;
+					return doctype_s + tag::serialize(head.serialize() + body.serialize());
 				}
 			};
 		}
