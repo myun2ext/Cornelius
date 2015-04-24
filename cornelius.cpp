@@ -8,26 +8,35 @@
 using namespace myun2;
 using namespace myun2::cornelius;
 
-int main()
+::std::string print_css(const char* path)
 {
-	http::request r = http::request::parse("GET / HTTP/1.1\r\n");
-
-	printf("Method:   \"%s\"\n", r.method.c_str());
-	printf("Path:     \"%s\"\n", r.path.c_str());
-	printf("Protocol: \"%s\"\n", r.protocol.c_str());
-
-	//-- CSS Rendering Section ----------------------------------------
-	printf("\n");
+	::std::string styles;
 	css::selector style_h1 = css::selector("h1");
 	style_h1["background-color"] = "#ffffff";
-	printf("CSS:\n%s\n", style_h1.serialize().c_str());
+	styles += style_h1.serialize();
+	return styles;
+}
 
-	//-- HTML Rendering Section ---------------------------------------
-	printf("\n");
+html::document<5> get_html(const char* path)
+{
 	html::document<5> doc;
 	doc.head.title = "Title";
 	doc.body += html::tags::h1("Title");
-	printf("HTML:\n%s\n", doc.serialize().c_str());
+	return doc;
+}
+
+int main()
+{
+	char buffer[2046];
+	fprintf(stderr, "GET / HTTP/1.1 ?\n");
+
+	http::request r = http::request::parse(fgets(buffer, sizeof(buffer), stdin));
+	fprintf(stderr, "Method:   \"%s\"\n", r.method.c_str());
+	fprintf(stderr, "Path:     \"%s\"\n", r.path.c_str());
+	fprintf(stderr, "Protocol: \"%s\"\n", r.protocol.c_str());
+	fprintf(stderr, "\n");
+
+	puts(get_html(r.path.c_str()).serialize().c_str());
 
 	return 0;
 }
