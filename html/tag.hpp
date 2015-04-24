@@ -43,22 +43,20 @@ namespace myun2
 					buffer += ">" + (content_in ? content_in : content);
 					return buffer + "</" + name + ">";
 				}
+				::std::string operator += (const char* content_in) {
+					return content += content_in;
+				}
+				::std::string operator += (const ::std::string& content_in) {
+					return content += content_in;
+				}
 				const char* operator = (const char* content_in) {
 					content = content_in;
 					return content_in;
 				}
-				/*::std::string operator = (::std::string& content_in) {
-					content = content_in;
-					return content;
-				}*/
 				::std::string operator = (const ::std::string& content_in) {
 					content = content_in;
 					return content;
 				}
-				/*::std::string operator = (const tag& content_in) {
-					content = content_in.serialize();
-					return content;
-				}*/
 				operator ::std::string() const {
 					return serialize();
 				}

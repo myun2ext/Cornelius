@@ -26,7 +26,7 @@ int main()
 	printf("\n");
 	html::document<5> doc;
 	doc.head.title = "Title";
-	doc.body = html::tags::h1("Title");
+	doc.body += html::tags::h1("Title");
 	printf("HTML:\n%s\n", doc.serialize().c_str());
 
 	return 0;
