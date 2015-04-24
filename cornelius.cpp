@@ -36,7 +36,9 @@ int main()
 	fprintf(stderr, "Protocol: \"%s\"\n", r.protocol.c_str());
 	fprintf(stderr, "\n");
 
-	puts(get_html(r.path.c_str()).serialize().c_str());
+	::std::string content = get_html(r.path.c_str()).serialize().c_str();
+	http::write_request(stdout, content);
+	printf("\n");
 
 	return 0;
 }
