@@ -27,8 +27,8 @@ namespace myun2
 			struct document : tag
 			{
 				document() : tag("html"){}
-				head_ head;
-				body_ body;
+				tags::head head;
+				tags::body body;
 
 				::std::string serialize() const
 				{

@@ -49,7 +49,8 @@ namespace myun2
 	}
 }
 
-#define DECL_CORNELIUS_HTML_TAG(NAME)	struct NAME : tag { NAME() : tag(#NAME){} };
+#define DECL_CORNELIUS_HTML_TAG(NAME)	\
+	struct NAME : tag { NAME() : tag(#NAME){} };
 #define DECL_CORNELIUS_HTML_TAG2(CLASS_NAME, TAG_NAME)	\
 	struct CLASS_NAME : tag { CLASS_NAME() : tag(TAG_NAME){} };
 

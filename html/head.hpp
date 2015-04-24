@@ -7,17 +7,19 @@ namespace myun2
 	{
 		namespace html
 		{
-			DECL_CORNELIUS_HTML_TAG2(title_, "title");
-
-			struct head_ : tag
+			namespace tags
 			{
-				head_() : tag("head"){}
-				title_ title;
-				::std::string serialize() const
+				struct head : tag
 				{
-					return tag::serialize(title);
-				}
-			};
+					head() : tag("head"){}
+					tags::title title;
+
+					::std::string serialize() const
+					{
+						return tag::serialize(title);
+					}
+				};
+			}
 		}
 	}
 }
