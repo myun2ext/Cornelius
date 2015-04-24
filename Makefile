@@ -1,2 +1,2 @@
 all:
-	g++ -O3 -o cornelius cornelius.cpp
+	g++ -I./ -I../../ -O3 -o cornelius cornelius.cpp
