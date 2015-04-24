@@ -28,6 +28,8 @@ namespace myun2
 				//	Constructors
 				tag(const char* name_in, const char* content_in="")
 					: name(name_in), content(content_in) {}
+				tag(const char* name_in, const ::std::string& content_in)
+					: name(name_in), content(content_in) {}
 
 				::std::string serialize(const ::std::string& content_in) const { return serialize(content_in.c_str()); }
 				::std::string serialize(const char* content_in = 0) const
@@ -41,6 +43,22 @@ namespace myun2
 					buffer += ">" + (content_in ? content_in : content);
 					return buffer + "</" + name + ">";
 				}
+				const char* operator = (const char* content_in) {
+					content = content_in;
+					return content_in;
+				}
+				/*::std::string operator = (::std::string& content_in) {
+					content = content_in;
+					return content;
+				}*/
+				::std::string operator = (const ::std::string& content_in) {
+					content = content_in;
+					return content;
+				}
+				/*::std::string operator = (const tag& content_in) {
+					content = content_in.serialize();
+					return content;
+				}*/
 				operator ::std::string() const {
 					return serialize();
 				}
@@ -50,8 +68,15 @@ namespace myun2
 }
 
 #define DECL_CORNELIUS_HTML_TAG(NAME)	\
-	struct NAME : tag { NAME() : tag(#NAME){} };
+	struct NAME : tag {					\
+	  using tag::operator=;	\
+	  NAME(const char* content_in = "") : tag(#NAME, content_in){}	\
+	  NAME(const ::std::string& content_in) : tag(#NAME, content_in){} };
+
 #define DECL_CORNELIUS_HTML_TAG2(CLASS_NAME, TAG_NAME)	\
-	struct CLASS_NAME : tag { CLASS_NAME() : tag(TAG_NAME){} };
+	struct CLASS_NAME : tag {			\
+	  using tag::operator=;	\
+	  CLASS_NAME(const char* content_in = "") : tag(TAG_NAME, content_in) {}	\
+	  CLASS_NAME(const ::std::string& content_in) : tag(TAG_NAME, content_in){} };
 
 #endif//__MYUN2_GITHUB_COM__CORNELIUS__HTML__TAG_HPP__

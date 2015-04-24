@@ -24,8 +24,10 @@ int main()
 
 	//-- HTML Rendering Section ---------------------------------------
 	printf("\n");
-	html::document<5> htmldoc;
-	printf("HTML:\n%s\n", htmldoc.serialize().c_str());
+	html::document<5> doc;
+	doc.head.title = "Title";
+	doc.body = html::tags::h1("Title");
+	printf("HTML:\n%s\n", doc.serialize().c_str());
 
 	return 0;
 }

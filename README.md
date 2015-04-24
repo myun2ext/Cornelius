@@ -1,3 +1,3 @@
 # Cornelius
 
-**Cornelius** is **Fast-HTTP Server.**
+**Cornelius** is Fast-HTTP Contents Server.
