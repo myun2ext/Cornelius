@@ -6,6 +6,14 @@
 #include "html.hpp"
 #include "myun2/responder/listener.hpp"
 
+#ifdef WIN32
+	#include <winsock2.h>
+	#include <io.h>
+	#include <fcntl.h>
+	#define SO_SYNCHRONOUS_NONALERT 0x20
+	#define SO_OPENTYPE     0x7008
+#endif
+
 using namespace myun2;
 using namespace myun2::cornelius;
 using namespace myun2::responder;
@@ -30,6 +38,11 @@ html::document<5> get_html(const char* path)
 int server();
 int main()
 {
+#ifdef WIN32
+	wsa_cleaner _wsa_cleaner;
+	int sockopt = SO_SYNCHRONOUS_NONALERT;
+	setsockopt(INVALID_SOCKET, SOL_SOCKET, SO_OPENTYPE, (char *)&sockopt, sizeof(sockopt));
+#endif
 	return server();
 }
 
@@ -49,6 +62,7 @@ int proccess_request(FILE* in, FILE* out)
 	http::write_request(out, content);
 	http::write_request(stdout, content);
 	printf("\n");
+	fflush(out);
 
 	return 0;
 }
@@ -57,11 +71,11 @@ int server_callback(struct sockaddr_in addr, responder::socket_desc::sock_type s
 {
 	FILE *fp;
 #ifdef WIN32
-	fp = fdopen(_open_osfhandle(sock, _O_RDONLY), "r+b");
+	fp = fdopen(_open_osfhandle(sock, _O_RDWR || _O_TEXT), "r+");
 #else
 	fp = fdopen(sock, "r+");
-	setvbuf(fp, NULL, _IONBF, 0);
 #endif
+	setvbuf(fp, NULL, _IONBF, 0);
 	return proccess_request(fp, fp);
 }
 
